@@ -5,67 +5,35 @@ const logger = require("morgan");
 const PORT = process.env.PORT || 8000;
 require("dotenv").config();
 const app = express();
-const indexRouter = require("./routes/index");
+const infoRouter = require("./routes/info");
+const idRouter = require("./routes/id");
+const listRouter = require("./routes/list");
 const mongoose = require("mongoose");
+// app.use("/", indexRouter);
+// const data = require("./pokemon.json");
+
 //--middleware ------
 app.use(logger("dev"));
 app.use(express.json());
 app.use(express.static(path.join(__dirname, "public")));
+app.use("/pokemon", listRouter);
+app.use("/pokemon/", idRouter);
+app.use("/pokemon/", infoRouter);
+const modelpost = require("./models/post");
 
-//-----Connection ------
-const mongoDB =
-  "mongodb+srv://chinchi42:hjLIpSPJpc3tv4vg@pokemon-data.lievjeq.mongodb.net/database?retryWrites=true&w=majority";
-mongoose.connect(process.env.PW_CONNECT);
-
-const db = mongoose.connection;
-//Bind connection to error event (to get notification of connection errors)
-db.on("error", console.error.bind(console, "MongoDB connection error:"));
-const Schema = mongoose.Schema;
+//-----Connection to mongodb-----
+//connection works but was not able to display the database yes
 // mongoose.connect(process.env.PW_CONNECT);
-//---check connection status---------
-
-// const db  mongoose.connection;
-// //Bind connection to error event (to get notification of connection errors)
+// const db = mongoose.connection;
+// //test connection status
 // db.on("error", console.error.bind(console, "MongoDB connection error:"));
-// const postSchema = new Schema({
-//   // String is shorthand for {type: String}
-//   // _id: Schema.Types.ObjectId,
-//   id: Number,
-// name: {
-//   english: String,
-//   japanese: String,
-//   chinese: String,
-//   french: String,
-// },
-// type: [
-//   {
-//     type: String,
-//   },
-// ],
-// base: {
-//   HP: Number,
-//   Attack: Number,
-//   Defense: Number,
-//   "Sp. Attack": Number,
-//   "Sp. Defense": Number,
-//   Speed: Number,
-// },
+// db.once("open", function () {
+//   console.log("MongoDB database connection established successfully");
 // });
 
-// const pokemons = mongoose.model("pokemonlist", postSchema);
-//----connection ende
-// catch 404 and forward to error handler
-
-// mongoose.connection.on("connecting", () => {
-//   console.log("connecting");
-//   console.log(mongoose.connection.readyState); //logs 2
-// });
-app.get("/", (req, res, next) => {
-  res.send("Test");
-  // pokemons.find({}, (err, data) => res.send(data));
+app.get("/", (req, res) => {
+  res.send("Welcome to pokemon fight");
 });
-
-// module.exports = client.connect;
 
 //--- Server listeing -----
 let server = app.listen(PORT, function () {
