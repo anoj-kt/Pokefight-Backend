@@ -2,6 +2,11 @@ const express = require('express')
 const app = express()
 const port = 3000
 const pokemonJson = require('./pokemon.json')
+const cors = require('cors');
+
+app.use(cors({
+    origin: '*'
+}))
 
 app.get('/', (req, res) => {
     res.send('use /pokemon to access all pokemons')
