@@ -3,8 +3,3 @@ app.set("views", path.join(__dirname, "views"));
 app.set("view engine", "jade");
 const usersRouter = require("./routes/id");
 app.use(express.urlencoded({ extended: false }));
-
-
-//routing stuff
-app.use("/", indexRouter);
-app.use("/users", usersRouter);

@@ -1,7 +1,6 @@
-const router = require("../routes/info");
 //npm install express-async-handler --save
 //npm install typescript --save
-const AsyncWrapper = require("../utilities/asyncwrapper").asyncWrapper;
+// const AsyncWrapper = require("../utilities/asyncwrapper").asyncWrapper;
 //router.get('/', AsyncWrapper(async(req, res, next) {}));
 const pokemonlist = require("../routes/pokemon.json");
 module.exports = {
