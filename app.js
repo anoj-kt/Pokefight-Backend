@@ -33,6 +33,9 @@ app.use(cors({ origin: "*" }));
 app.get("/", (req, res) => {
   res.send("Welcome to pokemon fight");
 });
+app.use((req, res) => {
+  res.status(404).send("404");
+});
 
 //--- Server listeing -----
 let server = app.listen(PORT, function () {
