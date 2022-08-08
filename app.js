@@ -2,15 +2,14 @@ const express = require("express");
 const path = require("path");
 // const cookieParser = require("cookie-parser");
 const logger = require("morgan");
-const PORT = process.env.PORT || 8000;
+const PORT = 8000;
 require("dotenv").config();
 const app = express();
 const infoRouter = require("./routes/info");
 const idRouter = require("./routes/id");
 const listRouter = require("./routes/list");
 const mongoose = require("mongoose");
-// app.use("/", indexRouter);
-// const data = require("./pokemon.json");
+var cors = require("cors");
 
 //--middleware ------
 app.use(logger("dev"));
@@ -19,8 +18,8 @@ app.use(express.static(path.join(__dirname, "public")));
 app.use("/pokemon", listRouter);
 app.use("/pokemon/", idRouter);
 app.use("/pokemon/", infoRouter);
-const modelpost = require("./models/post");
-
+// const modelpost = require("./models/post");
+app.use(cors({ origin: "*" }));
 //-----Connection to mongodb-----
 //connection works but was not able to display the database yes
 // mongoose.connect(process.env.PW_CONNECT);

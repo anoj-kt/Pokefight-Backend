@@ -9,15 +9,6 @@ router.get("/:id", function (req, res, next) {
     ? (idpage = 0)
     : (idpage = Number(req.params.id) - 1);
 
-  console.log("res", idpage);
-  res.send(
-    `<ul>
-      <li>
-        <a href="/pokemon/${pokemonlist.id}">
-            ${pokemonlist[idpage].id}
-        </a>
-      </li>
-    </ul>`
-  );
+  res.send(pokemonlist[idpage].id);
 });
 module.exports = router;

@@ -6,7 +6,6 @@ const pokemonlist = require("./pokemon.json");
 router.get("/:id/:info", function (req, res, next) {
   const idpage = Number(req.params.id);
   let onepokemon = pokemonlist[idpage];
-
   res.send(Object.entries(onepokemon));
 });
 module.exports = router;
