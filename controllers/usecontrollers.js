@@ -7,10 +7,13 @@ module.exports = {
   getid: async (req, res, next) => {
     let idpage = null;
     try {
-      Number(req.params.id) === 0
-        ? (idpage = 0)
-        : (idpage = Number(req.params.id) - 1);
-      res.send(await JSON.stringify(pokemonlist[idpage].id));
+      if (Number(req.params.id) > 0) {
+        idpage = Number(req.params.id) - 1;
+        res.send(await JSON.stringify(pokemonlist[idpage].id));
+      } else {
+        let message = "Id not found for : Id = " + idpage;
+        res.send(message);
+      }
     } catch (err) {
       console.log(err.message);
     }
