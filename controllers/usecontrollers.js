@@ -1,10 +1,13 @@
+const express = require("express");
+const app = express();
+app.use(express.json());
 //npm install express-async-handler --save
 //npm install typescript --save
 // const AsyncWrapper = require("../utilities/asyncwrapper").asyncWrapper;
 //router.get('/', AsyncWrapper(async(req, res, next) {}));
-const pokemonSchema = require("../models/post");
-const pokemonlist = require("../routes/pokemon.json");
-//Initializes
+const { createLogicalAnd } = require("typescript");
+const { pokemonSchema, resultsSchema } = require("../models/post");
+// const pokemonlist = require("../routes/pokemon.json");
 
 //Declaration
 const getid = async (req, res) => {
@@ -20,6 +23,7 @@ const getid = async (req, res) => {
       let message = "Id not found for : Id = " + idpage;
       res.send(message);
     }
+    //pokemon/id/info
   } catch (err) {
     console.log(err.message);
   }
@@ -27,49 +31,22 @@ const getid = async (req, res) => {
 };
 
 const getinfo = async (req, res) => {
-  let idpage = Number(req.params.id);
-  let info = toString(req.params.info);
-  let onepokemon = pokemonlist[idpage];
-  // let filter = { id: Number(req.params.id)};
-  let filter = { $and: [{ id: Number(req.params.id) }, { type: "type" }] };
-  // $expr: {
-  //   $and: [
-  //     { id: idpage },
-  //     {
-  //       $or: [{ type: info }],
-  //     },
-  //   ],
-  // },
-  // };
-
-  // {$project:{One:"$MainObj.One"}},
-  //   {$project:{_id:0,One:1}}
-  //$or: [{ base: info }, { type: info }, { name: info }]
-  data = await pokemonSchema.findOne(filter);
-
+  // let idpage = Number(req.params.id);
+  let info = req.params.info;
+  // let onepokemon = pokemonlist[idpage];
+  let filter = { id: Number(req.params.id) };
   try {
-    res.send(data);
-    console.log(data);
+    data = await pokemonSchema.findOne(filter);
+    if (info === "info") {
+      res.send(await data);
+    } else {
+      let out = Object.entries(data[info.toString()]);
+      res.send(out);
+    }
   } catch (err) {
     res.send(err.message);
   }
-  // if (info === "info") {
-  //   res.send(await data);
-  //   // console.log(getid());
-  // } else {
-  // const out = Object.keys(data).filter((key) => {
-  //   return key.includes(info);
-  // });
-  // const result = out.reduce((obj, key) => {
-  //   return Object.assign(obj, {
-  //     [key]: onepokemon[key],
-  //   });
-  // }, {});
-  // if (out.length === 0) {
-  //   res.send("not found 404");
-  // } else res.send(await result);
 };
-
 const getlist = async (req, res, next) => {
   try {
     await pokemonSchema.find({}, (err, data) => res.send(data));
@@ -78,10 +55,14 @@ const getlist = async (req, res, next) => {
     console.log(err.message);
   }
 };
+const postresult = async (req, res, next) => {};
+//post requests
 
 //Initialize
 module.exports = {
   getid: getid,
   getinfo: getinfo,
   getlist: getlist,
+  postresult: postresult,
+  // putresults: putresults,
 };
