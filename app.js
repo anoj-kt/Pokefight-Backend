@@ -8,6 +8,7 @@ const app = express();
 const infoRouter = require("./routes/info");
 const idRouter = require("./routes/id");
 const listRouter = require("./routes/list");
+const gamesaveRouter = require("./routes/gamesave");
 const mongoose = require("mongoose");
 var cors = require("cors");
 
@@ -18,17 +19,19 @@ app.use(express.static(path.join(__dirname, "public")));
 app.use("/pokemon", listRouter);
 app.use("/pokemon/", idRouter);
 app.use("/pokemon/", infoRouter);
+// app.use("/game/", gamesaveRouter);
+
 // const modelpost = require("./models/post");
 app.use(cors({ origin: "*" }));
 //-----Connection to mongodb-----
-//connection works but was not able to display the database yes
-// mongoose.connect(process.env.PW_CONNECT);
-// const db = mongoose.connection;
-// //test connection status
-// db.on("error", console.error.bind(console, "MongoDB connection error:"));
-// db.once("open", function () {
-//   console.log("MongoDB database connection established successfully");
-// });
+// connection works but was not able to display the database yes
+mongoose.connect(process.env.PW_CONNECT);
+const db = mongoose.connection;
+//test connection status
+db.on("error", console.error.bind(console, "MongoDB connection error:"));
+db.once("open", function () {
+  console.log("MongoDB database connection established successfully");
+});
 
 app.get("/", (req, res) => {
   res.send("Welcome to pokemon fight");
