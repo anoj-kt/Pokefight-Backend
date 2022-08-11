@@ -1,10 +1,9 @@
-const express = require('express')
-const app = express()
-const port = process.env.PORT || 3000
+const express = require('express');
+const app = express();
+const port = process.env.PORT || 3000;
 const cors = require('cors');
 const pokemonRoutes = require('./routes/PokemonRoutes');
 const mongoose = require('mongoose');
-const PokemonList = require('./models/PokemonDatabase'); 
 
 app.use(cors({
     origin: '*'

@@ -1,4 +1,4 @@
-const PokemonList = require('../models/PokemonDatabase') 
+const PokemonList = require('../models/PokemonDatabase'); 
 
 const allPokemons = (req, res) => {
     PokemonList.find()
@@ -11,7 +11,6 @@ const onePokemon = (req, res) => {
     PokemonList.findOne({id: pokeId})
     .then((result) => res.send(result))
     .catch((err) => console.log('Error fetchin pokemon: ' + err))
-    
 };
 
 const onePokemonInfo = (req, res) => {
@@ -27,4 +26,4 @@ module.exports = {
     allPokemons,
     onePokemon,
     onePokemonInfo
-}
+};
