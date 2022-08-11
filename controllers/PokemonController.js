@@ -19,7 +19,7 @@ const onePokemonInfo = (req, res) => {
 
     PokemonList.findOne({id: pokeId})
     .then((result) => res.send(result[info]))
-    .catch((err) => console.log('Error fetchin pokemon: ' + err))
+    .catch((err) => console.log('Error fetchin pokemon info: ' + err))
 };
 
 module.exports = {
