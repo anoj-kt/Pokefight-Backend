@@ -1,4 +1,5 @@
 const pokemonJson = require('../pokemon.json');
+const pokemonList = require('../models/PokemonDatabase') 
 
 const allPokemons = (req, res) => {
     res.send(pokemonJson)
