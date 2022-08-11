@@ -19,9 +19,9 @@ app.use(express.static(path.join(__dirname, "public")));
 app.use("/pokemon", listRouter);
 app.use("/pokemon/", idRouter);
 app.use("/pokemon/", infoRouter);
-// app.use("/game/", gamesaveRouter);
 
-// const modelpost = require("./models/post");
+app.use("/game/", gamesaveRouter);
+
 app.use(cors({ origin: "*" }));
 //-----Connection to mongodb-----
 // connection works but was not able to display the database yes

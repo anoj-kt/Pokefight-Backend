@@ -1,21 +1,8 @@
 const mongoose = require("mongoose");
 const Schema = mongoose.Schema;
 
-const resultsSchema = new Schema(
-  {
-    winner_id: Number,
-    pokemon_one: Number,
-    pokemon_two: Number,
-    score: Number,
-  },
-  { collection: "results" }
-);
-module.exports = mongoose.model("results", resultsSchema);
-
 const pokemonSchema = new Schema(
   {
-    // String is shorthand for {type: String}
-    // _id: Schema.Types.ObjectId,
     id: Number,
     name: {
       english: String,
@@ -36,4 +23,5 @@ const pokemonSchema = new Schema(
   { collection: "pokemonlist" }
 );
 
-module.exports = mongoose.model("pokemonlist", pokemonSchema);
+const pokemonschema = mongoose.model("pokemonlist", pokemonSchema);
+module.exports = { pokemonschema };
