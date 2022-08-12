@@ -3,7 +3,7 @@ const Schema = mongoose.Schema;
 
 const pokemonSchema = new Schema(
   {
-    id: Number,
+    _id: Number,
     name: {
       english: String,
       japanese: String,

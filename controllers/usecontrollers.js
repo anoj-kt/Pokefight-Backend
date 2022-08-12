@@ -56,11 +56,36 @@ const getlist = async (req, res, next) => {
 };
 //post & put requests
 const postSave = (req, res) => {
-  res.send("test");
+  const { winner, loser, score, date } = req.body;
+  let test = resultschema.find({
+    $and: [{ winner: { winner }, loser: { loser }, score: score, date: date }],
+  });
+  if (test) {
+    console.log("already exists");
+  }
+  // if (test) {
+  //   res.send("user already added");
+  // } else {
   resultschema
-    .create({ id: 1, pokemon_one: 3, pokemon_two: 5, score: 60 })
-    .then((results) => res.send);
+    .create({
+      //       // uid: new mongoose.Types.ObjectId(),
+      winner: {
+        name: winner.name,
+        id: winner.id,
+      },
+      loser: {
+        name: loser.name,
+        id: loser.id,
+      },
+      score: score,
+      date: date,
+    })
+    .then(function (newMessage) {
+      res.send(newMessage);
+    });
+  // }
 };
+
 //Initialize
 module.exports = {
   getid: getid,
