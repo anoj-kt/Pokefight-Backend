@@ -1,4 +1,4 @@
-const PokemonList = require('../models/PokemonDatabase'); 
+const PokemonList = require('../models/PokemonSchema'); 
 
 const allPokemons = (req, res) => {
     PokemonList.find()
